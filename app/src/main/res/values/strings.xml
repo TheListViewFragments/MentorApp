@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello_world">Now let's find that subreddit of yours...</string>
+    <string name="find_that_subreddit">Now let\'s find that subreddit of yours...</string>
     <string name="action_settings">Settings</string>
 
 </resources>
