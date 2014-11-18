@@ -1,4 +1,4 @@
-package com.detroitlabs.mentorapp.Model;
+package com.detroitlabs.mentorapp.model;
 
 /**
  * Created by aditishetty on 11/18/14.
