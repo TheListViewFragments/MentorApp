@@ -65,11 +65,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_container.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="activity_container.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_container.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.14367816" vertical-offset="0" max-vertical-offset="522">
+            <state vertical-scroll-proportion="-2.7777777" vertical-offset="0" max-vertical-offset="165">
               <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fragment_profile_view.xml" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile_view.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4827586" vertical-offset="18" max-vertical-offset="540">
+              <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -1189,6 +1202,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_container.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile_view.xml" />
       </list>
     </option>
   </component>
@@ -1874,8 +1888,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_container.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.14367816" vertical-offset="0" max-vertical-offset="522">
+        <state vertical-scroll-proportion="-2.7777777" vertical-offset="0" max-vertical-offset="165">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_profile_view.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4827586" vertical-offset="18" max-vertical-offset="540">
+          <caret line="18" column="24" selection-start-line="18" selection-start-column="24" selection-end-line="18" selection-end-column="24" />
           <folding />
         </state>
       </provider>
