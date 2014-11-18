@@ -13,6 +13,9 @@ public class ListingModel implements Parcelable {
     private String ListingUrl;
     private boolean isSelfText;
 
+    public ListingModel() {
+    }
+
     public String getTitle() {
         return title;
     }
