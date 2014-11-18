@@ -1,9 +1,11 @@
-package com.detroitlabs.mentorapp;
+package com.detroitlabs.mentorapp.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.detroitlabs.mentorapp.R;
 
 
 public class MainActivity extends Activity {
