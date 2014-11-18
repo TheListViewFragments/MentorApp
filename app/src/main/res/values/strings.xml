@@ -3,5 +3,6 @@
 
     <string name="find_that_subreddit">Now let\'s find that subreddit of yours...</string>
     <string name="action_settings">Settings</string>
+    <string name="app_name">MentorApp</string>
 
 </resources>
