@@ -19,24 +19,6 @@ import java.util.List;
  * Created by elyseturner on 11/18/14.
  */
 
-import android.app.FragmentTransaction;
-        import android.app.ListFragment;
-        import android.content.Context;
-        import android.os.Bundle;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.AdapterView;
-        import android.widget.ArrayAdapter;
-        import android.widget.ImageView;
-        import android.widget.ListView;
-        import android.widget.TextView;
-        import java.util.ArrayList;
-        import java.util.List;
-
-/**
- * Created by anniedevine on 11/6/14.
- */
 public class SubredditListViewFragment extends ListFragment {
 
     private static final String ETSY_OBJECT = "etsy object";
@@ -44,7 +26,7 @@ public class SubredditListViewFragment extends ListFragment {
     private static final String SEARCH_KEYWORD_TAG = "search_keyword_tag";
     ListView mainListView;
     ArrayAdapter mArrayAdapter;
-    List<EtsyObjectsModel> resultList = new ArrayList<EtsyObjectsModel>();
+    List<ListingModel> resultList = new ArrayList<ListingModel>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,7 +59,7 @@ public class SubredditListViewFragment extends ListFragment {
         getArguments().getParcelableArrayList(QUEUE);
         EtsyAPI etsyAPI = new EtsyAPI(getArguments().getString(SEARCH_KEYWORD_TAG), new EtsyAPI.OnDataLoadedListener() {
             @Override
-            public void dataLoaded(ArrayList<EtsyObjectsModel> etsyObjectses) {
+            public void dataLoaded(ArrayList<ListingModel> etsyObjectses) {
                 adapter.clear();
                 adapter.addAll(etsyObjectses);
                 adapter.notifyDataSetChanged();
@@ -87,8 +69,8 @@ public class SubredditListViewFragment extends ListFragment {
         etsyAPI.execute();
     }
 
-    public class ResultsAdapter extends ArrayAdapter<EtsyObjectsModel> {
-        private List<EtsyObjectsModel> searchResults;
+    public class ResultsAdapter extends ArrayAdapter<ListingModel> {
+        private List<ListingModel> searchResults;
 
         public ResultsAdapter(Context context, List<EtsyObjectsModel> etsyObjectModels) {
             super(context, android.R.layout.simple_list_item_1, etsyObjectModels);
