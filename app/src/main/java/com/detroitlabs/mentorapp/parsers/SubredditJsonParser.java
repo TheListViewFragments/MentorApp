@@ -13,7 +13,6 @@ import java.util.ArrayList;
  */
 public class SubredditJsonParser {
 
-    private JSONObject jsonObject;
     public static ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
 
     private static final String DATA_KEY = "data";
