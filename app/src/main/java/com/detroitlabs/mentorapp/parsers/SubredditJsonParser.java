@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class SubredditJsonParser {
 
     private JSONObject jsonObject;
+    public static ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
 
     private static final String DATA_KEY = "data";
     private static final String CHILDREN_KEY = "children";
@@ -27,6 +28,14 @@ public class SubredditJsonParser {
 
         JSONObject listingJsonObject = new JSONObject(redditJsonString);
         JSONObject dataJsonObject = listingJsonObject.getJSONObject(DATA_KEY);
+        JSONArray childrenJsonArray = dataJsonObject.getJSONArray(CHILDREN_KEY);
+
+        for(int i = 0; i < childrenJsonArray.length(); i++) {
+            ListingModel redditListingModel = new ListingModel();
+            JSONObject anotherDataJsonObject = childrenJsonArray.getJSONObject(i).getJSONObject(DATA_KEY);
+
+            
+        }
 
     }
 }
