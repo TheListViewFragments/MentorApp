@@ -81,8 +81,8 @@
       <file leaf-file-name="SubredditJsonParser.java" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/detroitlabs/mentorapp/parsers/SubredditJsonParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.80815345" vertical-offset="46" max-vertical-offset="940">
-              <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.736211" vertical-offset="186" max-vertical-offset="1020">
+              <caret line="40" column="89" selection-start-line="40" selection-start-column="89" selection-end-line="40" selection-end-column="89" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#412#426#0" expanded="true" />
@@ -2214,8 +2214,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/detroitlabs/mentorapp/parsers/SubredditJsonParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.80815345" vertical-offset="46" max-vertical-offset="940">
-          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.736211" vertical-offset="186" max-vertical-offset="1020">
+          <caret line="40" column="89" selection-start-line="40" selection-start-column="89" selection-end-line="40" selection-end-column="89" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#412#426#0" expanded="true" />

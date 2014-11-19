@@ -34,7 +34,11 @@ public class SubredditJsonParser {
             ListingModel redditListingModel = new ListingModel();
             JSONObject anotherDataJsonObject = childrenJsonArray.getJSONObject(i).getJSONObject(DATA_KEY);
 
-            
+            redditListingModel.setTitle(anotherDataJsonObject.getString(TITLE_KEY));
+            redditListingModel.setAuthor(anotherDataJsonObject.getString(AUTHOR_KEY));
+            redditListingModel.setListingUrl(anotherDataJsonObject.getString(URL_KEY));
+            redditListingModel.setSelfText(anotherDataJsonObject.getString(SELF_TEXT_KEY));
+            redditListingModel.setSelfText(anotherDataJsonObject.getString(IS_SELF_KEY));
         }
 
     }
