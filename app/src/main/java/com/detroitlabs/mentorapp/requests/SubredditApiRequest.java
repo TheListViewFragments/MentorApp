@@ -3,6 +3,7 @@ package com.detroitlabs.mentorapp.requests;
 import android.os.AsyncTask;
 
 import com.detroitlabs.mentorapp.model.ListingModel;
+import com.detroitlabs.mentorapp.parsers.SubredditJsonParser;
 
 import org.json.JSONException;
 
@@ -18,16 +19,13 @@ import java.util.ArrayList;
  * Created by elyseturner on 11/19/14.
  */
 public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<ListingModel>> {
-//    private final String AUTHOR =
-//    private final String TITLE =;
-//    private final String IS_SELF_TEXT =
+
     private final String URL_BASE = "http://api.reddit.com/r/";
     private String SUBREDDIT_NAME = "";
     public String redditJsonString;
 
-
     @Override
-    protected ArrayList doInBackground(String... params) {
+    protected ArrayList<ListingModel> doInBackground(String... params) {
         HttpURLConnection urlConnection = null;
         BufferedReader bufferedReader = null;
         SUBREDDIT_NAME = params[0];
@@ -66,8 +64,7 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
             redditJsonString = buffer.toString();
 
         }catch (IOException e) {
-        // If the code didn't successfully get the weather data, there's no point in attemping
-        // to parse it.
+
         return null;
     } finally {
         if (urlConnection != null) {
@@ -81,7 +78,7 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
         }
     }
         try {
-            ArrayList<ListingModel> listingInformation = parsePostingFromJsonString(redditJsonString);
+            ArrayList<ListingModel> listingInformation = SubredditJsonParser.parsePostingFromJsonString(redditJsonString);
             return listingInformation;
 
         } catch (JSONException e) {
@@ -92,5 +89,6 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
     @Override
     protected void onPostExecute(ArrayList<ListingModel> listingModels) {
         super.onPostExecute(listingModels);
+        // implement interface to send arraylist back to main activity
     }
 }
