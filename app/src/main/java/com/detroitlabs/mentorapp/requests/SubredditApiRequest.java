@@ -3,6 +3,7 @@ package com.detroitlabs.mentorapp.requests;
 import android.os.AsyncTask;
 
 import com.detroitlabs.mentorapp.model.ListingModel;
+import com.detroitlabs.mentorapp.parsers.SubredditJsonParser;
 
 import org.json.JSONException;
 
@@ -77,7 +78,7 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
         }
     }
         try {
-            ArrayList<ListingModel> listingInformation = parsePostingFromJsonString(redditJsonString);
+            ArrayList<ListingModel> listingInformation = SubredditJsonParser.parsePostingFromJsonString(redditJsonString);
             return listingInformation;
 
         } catch (JSONException e) {
