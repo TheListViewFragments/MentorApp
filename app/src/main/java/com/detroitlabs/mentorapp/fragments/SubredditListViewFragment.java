@@ -4,6 +4,7 @@ package com.detroitlabs.mentorapp.fragments;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,10 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.detroitlabs.mentorapp.activities.SubredditListViewActivity;
+import com.detroitlabs.mentorapp.interfaces.ListingInterface;
 import com.detroitlabs.mentorapp.model.ListingModel;
+import com.detroitlabs.mentorapp.requests.SubredditApiRequest;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,16 +23,21 @@ import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class SubredditListViewFragment extends ListFragment {
+public class SubredditListViewFragment extends ListFragment implements ListingInterface {
     private final long TIMER_DELAY = 60000;
     private final long TIMER_PERIOD = 60000;
     private final long MARKER_REMOVAL_TIME = 5000;
     public static final String LISTING_MODELS_KEY = "listingModels";
+    public SubredditApiRequest subredditApiRequest;
+    static final String SUBREDDIT_CHOICE_KEY = "SUBREDDIT_CHOICE_KEY";
+    String subreddit;
     ArrayList<ListingModel> mListingModels = new ArrayList<ListingModel>();
     Timer timer;
 
 
-    public SubredditListViewFragment(){}
+    public SubredditListViewFragment(){
+
+    }
 
     public static SubredditListViewFragment newInstance(ArrayList<ListingModel> listingModels){
         Bundle args = new Bundle();
@@ -38,9 +47,13 @@ public class SubredditListViewFragment extends ListFragment {
         return subredditListViewFragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        subreddit = getActivity().getIntent().getStringExtra(SUBREDDIT_CHOICE_KEY);
 
 
         Bundle data = getArguments();
@@ -50,6 +63,9 @@ public class SubredditListViewFragment extends ListFragment {
 
         setUpArrayAdapter(mListingModels);
     }
+
+
+
 
     @Override
     public void onResume() {
@@ -63,6 +79,9 @@ public class SubredditListViewFragment extends ListFragment {
         }, TIMER_DELAY, TIMER_PERIOD); // updates each 60 secs
     }
 
+
+
+
     private void TimerMethod() {
         //This method is called directly by the timer
         //and runs in the same thread as the timer.
@@ -72,15 +91,21 @@ public class SubredditListViewFragment extends ListFragment {
         getActivity().runOnUiThread(refreshListView);
     }
 
+
+
     private Runnable refreshListView = new Runnable () {
         //This method runs in the same thread as the UI.
 
         //Do something to the UI thread here
         //Go through the list of the markers and call that remove on the ones that are too old (5s)
         public void run() {
-
+            subredditApiRequest = new SubredditApiRequest(SubredditListViewFragment.this);
+            subredditApiRequest.execute(getActivity().sub);
         }
     };
+
+
+
 
     public void setUpArrayAdapter(ArrayList<ListingModel> listingModels){
         ArrayAdapter<ListingModel> listingModelArrayAdapter = new ArrayAdapter<ListingModel>(getActivity(), android.R.layout.simple_list_item_2, listingModels){
@@ -114,12 +139,23 @@ public class SubredditListViewFragment extends ListFragment {
 
     }
 
+
+
+
     @Override
     public void onPause() {
         if(timer != null){
             timer.cancel();
         }
         super.onPause();
+    }
+
+
+
+    @Override
+    public void getArrayListOfListings(ArrayList<ListingModel> listOfListings) {
+        Log.d("MainActivity", "Inside of getArrayListOfListings");
+        setUpArrayAdapter(listOfListings);
     }
 }
 
