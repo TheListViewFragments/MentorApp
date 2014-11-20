@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.detroitlabs.mentorapp.activities.SubredditListViewActivity;
 import com.detroitlabs.mentorapp.interfaces.ListingInterface;
@@ -26,7 +27,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SubredditListViewFragment extends ListFragment implements ListingInterface {
-    private final long TIMER_DELAY = 60000;
+    private final long TIMER_DELAY = 0;
     private final long TIMER_PERIOD = 60000;
     private final long MARKER_REMOVAL_TIME = 5000;
     public static final String LISTING_MODELS_KEY = "listingModels";
@@ -155,6 +156,7 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
     @Override
     public void getArrayListOfListings(ArrayList<ListingModel> listOfListings) {
         Log.d("MainActivity", "Inside of getArrayListOfListings");
+        Toast.makeText(getActivity(), "REFRESHED", Toast.LENGTH_SHORT).show();
         setUpArrayAdapter(listOfListings);
     }
 
