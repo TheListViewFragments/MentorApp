@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.detroitlabs.mentorapp.R;
 import com.detroitlabs.mentorapp.interfaces.ListingInterface;
@@ -49,9 +50,15 @@ public class MainActivity extends Activity implements ListingInterface {
     @Override
     public void getArrayListOfListings(ArrayList<ListingModel> listOfListings) {
         Log.d("MainActivity", "Inside of getArrayListOfListings");
-        Intent launchListViewIntent = new Intent(getApplicationContext(), SubredditListViewActivity.class);
-        launchListViewIntent.putExtra(SUBREDDIT_CHOICE_KEY, subreddit);
-        launchListViewIntent.putParcelableArrayListExtra(SUBREDDIT_LISTINGS_KEY,listOfListings);
-        startActivity(launchListViewIntent);
+        if (listOfListings.size() > 0){
+            Intent launchListViewIntent = new Intent(getApplicationContext(), SubredditListViewActivity.class);
+            launchListViewIntent.putExtra(SUBREDDIT_CHOICE_KEY, subreddit);
+            launchListViewIntent.putParcelableArrayListExtra(SUBREDDIT_LISTINGS_KEY,listOfListings);
+            startActivity(launchListViewIntent);
+        }
+
+        else {
+            Toast.makeText(this, "NO SUCH SUBREDDIT EXISTS... TRY AGAIN", Toast.LENGTH_SHORT).show();
+        }
     }
 }
