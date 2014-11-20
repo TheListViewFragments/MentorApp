@@ -50,7 +50,12 @@ public class MainActivity extends Activity implements ListingInterface {
     @Override
     public void getArrayListOfListings(ArrayList<ListingModel> listOfListings) {
         Log.d("MainActivity", "Inside of getArrayListOfListings");
-        if (listOfListings.size() > 0){
+
+        if (listOfListings == null){
+            listOfListings = new ArrayList<ListingModel>();
+        }
+
+        if (listOfListings.size() > 0 ){
             Intent launchListViewIntent = new Intent(getApplicationContext(), SubredditListViewActivity.class);
             launchListViewIntent.putExtra(SUBREDDIT_CHOICE_KEY, subreddit);
             launchListViewIntent.putParcelableArrayListExtra(SUBREDDIT_LISTINGS_KEY,listOfListings);
