@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class SubredditJsonParser {
 
-    public static ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
+    public ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
 
     private static final String DATA_KEY = "data";
     private static final String CHILDREN_KEY = "children";
@@ -23,7 +23,7 @@ public class SubredditJsonParser {
     private static final String SELF_TEXT_KEY = "selftext";
     private static final String IS_SELF_KEY = "is_self";
 
-    public static ArrayList<ListingModel> parsePostingFromJsonString(String redditJsonString) throws JSONException {
+    public ArrayList<ListingModel> parsePostingFromJsonString(String redditJsonString) throws JSONException {
 
         JSONObject listingJsonObject = new JSONObject(redditJsonString);
         JSONObject dataJsonObject = listingJsonObject.getJSONObject(DATA_KEY);
