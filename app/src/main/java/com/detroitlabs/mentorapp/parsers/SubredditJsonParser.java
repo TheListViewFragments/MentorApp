@@ -37,7 +37,7 @@ public class SubredditJsonParser {
             redditListingModel.setAuthor(anotherDataJsonObject.getString(AUTHOR_KEY));
             redditListingModel.setListingUrl(anotherDataJsonObject.getString(URL_KEY));
             redditListingModel.setSelfText(anotherDataJsonObject.getString(SELF_TEXT_KEY));
-            redditListingModel.setSelfText(anotherDataJsonObject.getString(IS_SELF_KEY));
+            redditListingModel.setIsSelfText(anotherDataJsonObject.getBoolean(IS_SELF_KEY));
                 // Android knows that one is a String and the other is a boolean
 
             redditListingModelList.add(redditListingModel);

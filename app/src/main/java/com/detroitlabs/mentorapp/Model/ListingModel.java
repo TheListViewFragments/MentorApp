@@ -48,11 +48,11 @@ public class ListingModel implements Parcelable {
         ListingUrl = listingUrl;
     }
 
-    public boolean isSelfText() {
+    public boolean getIsSelfText() {
         return isSelfText;
     }
 
-    public void setSelfText(boolean isSelfText) {
+    public void setIsSelfText(boolean isSelfText) {
         this.isSelfText = isSelfText;
     }
 
