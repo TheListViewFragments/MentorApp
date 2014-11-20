@@ -9,7 +9,7 @@
         android:text="@string/find_that_subreddit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="22dp"
+        android:textSize="20dp"
         android:layout_marginTop="150dp"/>
     <EditText
         android:id="@+id/search_string_text"

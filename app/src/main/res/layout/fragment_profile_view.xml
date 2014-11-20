@@ -8,23 +8,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="dummy title"
+        android:textStyle="bold"
         android:layout_marginTop="20dp"
-        android:textSize="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textSize="20dp"
         android:textColor="#000000"/>
     <TextView
         android:id="@+id/author"
         android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:text="dummy author"
         android:textColor="#696969"
-        android:textSize="25dp"
+        android:textSize="18dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <TextView
         android:id="@+id/text_or_image"
         android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:textSize="20dp"
+        android:textSize="18dp"
         android:textColor="#000000"
         android:text="bjhwvjhvjhvjhvjhvjhv,v,wjh,j"/>
 
