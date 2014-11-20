@@ -89,6 +89,7 @@ public class SubredditListViewFragment extends ListFragment {
             bundle.putParcelable(LISTING_MODELS_KEY, singleListingModel);
             singleItemViewFragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.container,singleItemViewFragment);
+            fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
 
         }
