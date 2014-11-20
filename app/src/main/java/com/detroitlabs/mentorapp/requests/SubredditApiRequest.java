@@ -98,6 +98,5 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
         super.onPostExecute(listingModels);
         // implement interface to send arraylist back to main activity
         listingInterface.getArrayListOfListings(listingModels);
-
     }
 }

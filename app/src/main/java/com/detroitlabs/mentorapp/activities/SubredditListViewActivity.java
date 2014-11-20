@@ -3,11 +3,14 @@ package com.detroitlabs.mentorapp.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.Log;
 
 import com.detroitlabs.mentorapp.R;
 import com.detroitlabs.mentorapp.fragments.SubredditListViewFragment;
+import com.detroitlabs.mentorapp.interfaces.ListingInterface;
 import com.detroitlabs.mentorapp.model.ListingModel;
 
 import java.util.ArrayList;
@@ -18,7 +21,7 @@ import java.util.ArrayList;
 public class SubredditListViewActivity extends Activity {
 
     public static final String TAG = "SubredditListViewActivity";
-    String subreddit;
+    public String subreddit;
     public ArrayList<ListingModel> subredditListings;
     static final String SUBREDDIT_CHOICE_KEY = "SUBREDDIT_CHOICE_KEY";
     public static final String SUBREDDIT_LISTINGS_KEY = "SUBREDDIT_LISTINGS_KEY";
@@ -30,7 +33,6 @@ public class SubredditListViewActivity extends Activity {
         setContentView(R.layout.activity_container);
 
         subredditListings = new ArrayList<ListingModel>();
-
         subreddit = getIntent().getStringExtra(SUBREDDIT_CHOICE_KEY);
 
         ArrayList<Parcelable> arrayListParcelables = getIntent().getParcelableArrayListExtra(SUBREDDIT_LISTINGS_KEY);
@@ -51,4 +53,5 @@ public class SubredditListViewActivity extends Activity {
         }
 
     }
+
 }

@@ -15,7 +15,8 @@
         android:id="@+id/search_string_text"
         android:layout_marginTop="25dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:singleLine="true"/>
     <Button
         android:id="@+id/first_page_button"
         android:layout_marginTop="30dp"
