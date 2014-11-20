@@ -29,7 +29,12 @@ public class DetailViewFragment extends Fragment {
         final ListingModel listingBundle = getArguments().getParcelable(LISTING_MODELS_KEY);
         titleView.setText(listingBundle.getTitle());
         authorView.setText(listingBundle.getAuthor());
-        descriptionView.setText(listingBundle.getSelfText());
+        if(listingBundle.getIsSelfText()) {
+            descriptionView.setText(listingBundle.getSelfText());
+        }else{
+//            descriptionView.setMovementMethod(LinkMovementMethod.getInstance());
+            descriptionView.setText(listingBundle.getListingUrl());
+        }
 
         return rootview;
     }
