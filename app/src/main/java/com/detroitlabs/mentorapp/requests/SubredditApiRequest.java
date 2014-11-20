@@ -2,6 +2,7 @@ package com.detroitlabs.mentorapp.requests;
 
 import android.os.AsyncTask;
 
+import com.detroitlabs.mentorapp.interfaces.ListingInterface;
 import com.detroitlabs.mentorapp.model.ListingModel;
 import com.detroitlabs.mentorapp.parsers.SubredditJsonParser;
 
@@ -23,6 +24,11 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
     private final String URL_BASE = "http://api.reddit.com/r/";
     private String SUBREDDIT_NAME = "";
     public String redditJsonString;
+    public ListingInterface listingInterface;
+
+    public SubredditApiRequest(ListingInterface listingInterface) {
+        this.listingInterface = listingInterface;
+    }
 
     @Override
     protected ArrayList<ListingModel> doInBackground(String... params) {
@@ -78,7 +84,7 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
         }
     }
         try {
-            ArrayList<ListingModel> listingInformation = SubredditJsonParser.parsePostingFromJsonString(redditJsonString);
+            ArrayList<ListingModel> listingInformation = new SubredditJsonParser().parsePostingFromJsonString(redditJsonString);
             return listingInformation;
 
         } catch (JSONException e) {
@@ -86,9 +92,12 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
         }
     }
 
+
     @Override
     protected void onPostExecute(ArrayList<ListingModel> listingModels) {
         super.onPostExecute(listingModels);
         // implement interface to send arraylist back to main activity
+        listingInterface.getArrayListOfListings(listingModels);
+
     }
 }

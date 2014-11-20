@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.Parcelable;
 
 import com.detroitlabs.mentorapp.R;
 import com.detroitlabs.mentorapp.fragments.SubredditListViewFragment;
@@ -19,33 +19,32 @@ public class SubredditListViewActivity extends Activity {
 
     public static final String TAG = "SubredditListViewActivity";
     String subreddit;
+    public ArrayList<ListingModel> subredditListings;
     static final String SUBREDDIT_CHOICE_KEY = "SUBREDDIT_CHOICE_KEY";
+    public static final String SUBREDDIT_LISTINGS_KEY = "SUBREDDIT_LISTINGS_KEY";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_container);
+
+        subredditListings = new ArrayList<ListingModel>();
+
         subreddit = getIntent().getStringExtra(SUBREDDIT_CHOICE_KEY);
-        Log.d("LOG_TAG", "subreddit is " + subreddit);
+
+        ArrayList<Parcelable> arrayListParcelables = getIntent().getParcelableArrayListExtra(SUBREDDIT_LISTINGS_KEY);
+
+        for (Parcelable thisParcelable : arrayListParcelables){
+            subredditListings.add((ListingModel)thisParcelable);
+        }
 
         FragmentManager fm = getFragmentManager();
         Fragment subbredditListViewFragment = fm.findFragmentById(R.id.container);
 
         if (subbredditListViewFragment ==null) {
 
-            //GET RID OF THIS STUFF ONCE WE HAVE A PROPER ARRAYLIST BUILT FROM JSON DATA
-            ArrayList<ListingModel> thisListOfListings = new ArrayList<ListingModel>();
-            ListingModel dummyModel = new ListingModel();
-            ListingModel dummyModel2 = new ListingModel();
-            dummyModel.setAuthor("BO");
-            dummyModel.setTitle("Bo Jackson's List Item");
-            thisListOfListings.add(dummyModel);
-            dummyModel2.setAuthor("NOT BO");
-            dummyModel2.setTitle("Not Bo Jackson's List Item");
-            thisListOfListings.add(dummyModel2);
-            //GET RID OF THIS STUFF ONCE WE HAVE A PROPER ARRAYLIST BUILT FROM JSON DATA
-
-            subbredditListViewFragment = SubredditListViewFragment.newInstance(thisListOfListings);
+            subbredditListViewFragment = SubredditListViewFragment.newInstance(subredditListings);
             fm.beginTransaction()
                     .add(R.id.container, subbredditListViewFragment)
                     .commit();
