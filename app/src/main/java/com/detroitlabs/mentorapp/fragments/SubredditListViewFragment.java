@@ -1,6 +1,7 @@
 package com.detroitlabs.mentorapp.fragments;
 
 
+import android.app.FragmentTransaction;
 import android.app.ListFragment;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,11 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.detroitlabs.mentorapp.activities.SubredditListViewActivity;
 import com.detroitlabs.mentorapp.interfaces.ListingInterface;
+import com.detroitlabs.mentorapp.R;
 import com.detroitlabs.mentorapp.model.ListingModel;
 import com.detroitlabs.mentorapp.requests.SubredditApiRequest;
 
@@ -100,7 +102,7 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
         //Go through the list of the markers and call that remove on the ones that are too old (5s)
         public void run() {
             subredditApiRequest = new SubredditApiRequest(SubredditListViewFragment.this);
-            subredditApiRequest.execute(getActivity().sub);
+            subredditApiRequest.execute(subreddit);
         }
     };
 
@@ -122,13 +124,13 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
                 TextView title = (TextView) rowView.findViewById(android.R.id.text2);
                 title.setText(getItem(position).getTitle());
 
-                rowView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //GO TO THIRD SCREEN FROM HERE AND DELETE THIS TOAST
-                        Toast.makeText(getActivity(), "YOU CLICKED " + getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+//                rowView.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        //GO TO THIRD SCREEN FROM HERE AND DELETE THIS TOAST
+//                        Toast.makeText(getActivity(), "YOU CLICKED " + getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
                 return rowView;
             }
@@ -138,8 +140,6 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
         setListAdapter(listingModelArrayAdapter);
 
     }
-
-
 
 
     @Override
@@ -156,6 +156,24 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
     public void getArrayListOfListings(ArrayList<ListingModel> listOfListings) {
         Log.d("MainActivity", "Inside of getArrayListOfListings");
         setUpArrayAdapter(listOfListings);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        final DetailViewFragment singleItemViewFragment = new DetailViewFragment();
+        ListingModel singleListingModel = (ListingModel) getListAdapter().getItem(position);
+        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+
+        if (fragmentTransaction.isEmpty()) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(LISTING_MODELS_KEY, singleListingModel);
+            singleItemViewFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.container,singleItemViewFragment);
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
+        }
     }
 }
 
