@@ -16,7 +16,7 @@ import com.detroitlabs.mentorapp.requests.SubredditApiRequest;
 
 import java.util.ArrayList;
 
-
+//this implementation turns our MainActivity into a ListingInterface
 public class MainActivity extends Activity implements ListingInterface {
     EditText editText;
     Button button;
@@ -47,6 +47,8 @@ public class MainActivity extends Activity implements ListingInterface {
         });
     }
 
+    //here we override the method that MUST be implemented in order for MainActivity to consider
+    //itself a proper ListingInterface object
     @Override
     public void getArrayListOfListings(ArrayList<ListingModel> listOfListings) {
         Log.d("MainActivity", "Inside of getArrayListOfListings");

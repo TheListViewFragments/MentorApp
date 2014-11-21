@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public interface ListingInterface {
 
+    //creating a method that all objects implementing ListingInterface MUST use
+    //it has no body because the object that implements our interface will decide for itself what the method does
     public void getArrayListOfListings (ArrayList<ListingModel> listOfListings);
 
 }

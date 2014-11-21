@@ -39,20 +39,27 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
         try{
             String urlString = URL_BASE + SUBREDDIT_NAME;
 
+            //turns our string into a url so that we can use it in a URL Connection
             URL subredditURL = new URL(urlString);
-
+            //opens a URL connection to the defined URL
             urlConnection = (HttpURLConnection) subredditURL.openConnection();
+            //tells the URL Connection to Get info rather than Post info
             urlConnection.setRequestMethod("GET");
+            //ok, now connect
             urlConnection.connect();
 
-            // Read the input stream into a String
+            //gets the bytes
             InputStream inputStream = urlConnection.getInputStream();
+
+            //used to organize the characters brought in from bufferedReader into a string
             StringBuffer buffer = new StringBuffer();
             if (inputStream == null) {
                 // Nothing to do.
                 return null;
             }
 
+            //turn the bytes into characters via InputStreamReader and use BufferedReader to speed
+            //up the process to take it in line-by-line
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
@@ -70,6 +77,7 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
             redditJsonString = buffer.toString();
 
         }catch (IOException e) {
+            //goes here if we attempt to connect to an invalid URL
 
         return null;
     } finally {
@@ -96,7 +104,8 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
     @Override
     protected void onPostExecute(ArrayList<ListingModel> listingModels) {
         super.onPostExecute(listingModels);
-        // implement interface to send arraylist back to main activity
+        //here we call a method on our interface object (which is our Mainactivity) to pass an
+        //ArrayList of listing models back to the main activity's getArrayListOfListings method
         listingInterface.getArrayListOfListings(listingModels);
     }
 }
