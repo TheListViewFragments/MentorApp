@@ -3,14 +3,10 @@ package com.detroitlabs.mentorapp.activities;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.util.Log;
 
 import com.detroitlabs.mentorapp.R;
 import com.detroitlabs.mentorapp.fragments.SubredditListViewFragment;
-import com.detroitlabs.mentorapp.interfaces.ListingInterface;
 import com.detroitlabs.mentorapp.model.ListingModel;
 
 import java.util.ArrayList;
@@ -35,22 +31,15 @@ public class SubredditListViewActivity extends Activity {
         subredditListings = new ArrayList<ListingModel>();
         subreddit = getIntent().getStringExtra(SUBREDDIT_CHOICE_KEY);
 
-        ArrayList<Parcelable> arrayListParcelables = getIntent().getParcelableArrayListExtra(SUBREDDIT_LISTINGS_KEY);
-
-        for (Parcelable thisParcelable : arrayListParcelables){
-            subredditListings.add((ListingModel)thisParcelable);
-        }
+        subredditListings = getIntent().getParcelableArrayListExtra(SUBREDDIT_LISTINGS_KEY);
 
         FragmentManager fm = getFragmentManager();
-        Fragment subbredditListViewFragment = fm.findFragmentById(R.id.container);
 
-        if (subbredditListViewFragment ==null) {
+        Fragment subbredditListViewFragment = SubredditListViewFragment.newInstance(subredditListings);
+        fm.beginTransaction()
+                .add(R.id.container, subbredditListViewFragment)
+                .commit();
 
-            subbredditListViewFragment = SubredditListViewFragment.newInstance(subredditListings);
-            fm.beginTransaction()
-                    .add(R.id.container, subbredditListViewFragment)
-                    .commit();
-        }
 
     }
 

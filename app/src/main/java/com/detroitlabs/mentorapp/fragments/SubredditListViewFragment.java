@@ -14,22 +14,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.detroitlabs.mentorapp.activities.SubredditListViewActivity;
-import com.detroitlabs.mentorapp.interfaces.ListingInterface;
 import com.detroitlabs.mentorapp.R;
+import com.detroitlabs.mentorapp.interfaces.ListingInterface;
 import com.detroitlabs.mentorapp.model.ListingModel;
 import com.detroitlabs.mentorapp.requests.SubredditApiRequest;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class SubredditListViewFragment extends ListFragment implements ListingInterface {
     private final long TIMER_DELAY = 0;
     private final long TIMER_PERIOD = 60000;
-    private final long MARKER_REMOVAL_TIME = 5000;
     public static final String LISTING_MODELS_KEY = "listingModels";
     public SubredditApiRequest subredditApiRequest;
     static final String SUBREDDIT_CHOICE_KEY = "SUBREDDIT_CHOICE_KEY";
@@ -56,6 +52,7 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //handle if string doesn't exist
         subreddit = getActivity().getIntent().getStringExtra(SUBREDDIT_CHOICE_KEY);
 
 
@@ -77,7 +74,7 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                TimerMethod ();
+                timerMethod();
             }
         }, TIMER_DELAY, TIMER_PERIOD); // updates each 60 secs
     }
@@ -85,7 +82,7 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
 
 
 
-    private void TimerMethod() {
+    private void timerMethod() {
         //This method is called directly by the timer
         //and runs in the same thread as the timer.
 
@@ -125,14 +122,6 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
                 TextView title = (TextView) rowView.findViewById(android.R.id.text2);
                 title.setText(getItem(position).getTitle());
 
-//                rowView.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View view) {
-//                        //GO TO THIRD SCREEN FROM HERE AND DELETE THIS TOAST
-//                        Toast.makeText(getActivity(), "YOU CLICKED " + getItem(position).getTitle(), Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-
                 return rowView;
             }
 
@@ -145,10 +134,10 @@ public class SubredditListViewFragment extends ListFragment implements ListingIn
 
     @Override
     public void onPause() {
+        super.onPause();
         if(timer != null){
             timer.cancel();
         }
-        super.onPause();
     }
 
 

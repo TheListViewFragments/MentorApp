@@ -13,8 +13,6 @@ import java.util.ArrayList;
  */
 public class SubredditJsonParser {
 
-    public ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
-
     private static final String DATA_KEY = "data";
     private static final String CHILDREN_KEY = "children";
     private static final String TITLE_KEY = "title";
@@ -25,6 +23,7 @@ public class SubredditJsonParser {
 
     //throws a JSONException so that the caller of this method has to deal with the JSONException
     public ArrayList<ListingModel> parsePostingFromJsonString(String redditJsonString) throws JSONException {
+        ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
 
         JSONObject listingJsonObject = new JSONObject(redditJsonString);
 
@@ -36,8 +35,11 @@ public class SubredditJsonParser {
             ListingModel redditListingModel = new ListingModel();
             JSONObject anotherDataJsonObject = childrenJsonArray.getJSONObject(i).getJSONObject(DATA_KEY);
 
+
             //grabbin' all the things from the objects in the array that we peeled down to
-            redditListingModel.setTitle(anotherDataJsonObject.getString(TITLE_KEY));
+            redditListingModel.setTitle(anotherDataJsonObject.optString(TITLE_KEY));
+
+
             redditListingModel.setAuthor(anotherDataJsonObject.getString(AUTHOR_KEY));
             redditListingModel.setListingUrl(anotherDataJsonObject.getString(URL_KEY));
             redditListingModel.setSelfText(anotherDataJsonObject.getString(SELF_TEXT_KEY));
