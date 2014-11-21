@@ -18,9 +18,9 @@ import java.util.ArrayList;
 
 //this implementation turns our MainActivity into a ListingInterface
 public class MainActivity extends Activity implements ListingInterface {
-    EditText editText;
-    Button button;
-    String subreddit = "";
+    public EditText editText;
+    public Button button;
+    public String subreddit = "";
     static final String SUBREDDIT_CHOICE_KEY = "SUBREDDIT_CHOICE_KEY";
     public static final String SUBREDDIT_LISTINGS_KEY = "SUBREDDIT_LISTINGS_KEY";
     public SubredditApiRequest subredditApiRequest;
@@ -35,11 +35,13 @@ public class MainActivity extends Activity implements ListingInterface {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //this next piece checks the character sequence from the edit text. Trim returns copy of string with leading and trailing white space removed
                 if (editText.getText().toString().trim().length() != 0) {
                     subreddit = (editText.getText().toString().trim());
 
                     subredditApiRequest = new SubredditApiRequest(MainActivity.this);
                     subredditApiRequest.execute(subreddit);
+                //inside our api request we call our interface on the main activity
 
                 }
 
