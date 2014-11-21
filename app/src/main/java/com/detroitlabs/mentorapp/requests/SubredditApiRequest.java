@@ -29,6 +29,7 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
     public SubredditApiRequest(ListingInterface listingInterface) {
         this.listingInterface = listingInterface;
     }
+    //we are passing in interface so that we can call methods on it
 
     @Override
     protected ArrayList<ListingModel> doInBackground(String... params) {
