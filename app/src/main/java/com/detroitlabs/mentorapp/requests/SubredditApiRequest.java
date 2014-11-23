@@ -22,38 +22,44 @@ import java.util.ArrayList;
 public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<ListingModel>> {
 
     private final String URL_BASE = "http://api.reddit.com/r/";
-    private String SUBREDDIT_NAME = "";
-    public String redditJsonString;
     public ListingInterface listingInterface;
 
+    /**
+     * we are passing in interface so that we can call methods on it
+     *
+     * @param listingInterface
+     */
     public SubredditApiRequest(ListingInterface listingInterface) {
         this.listingInterface = listingInterface;
     }
-    //we are passing in interface so that we can call methods on it
 
     @Override
     protected ArrayList<ListingModel> doInBackground(String... params) {
         HttpURLConnection urlConnection = null;
         BufferedReader bufferedReader = null;
-        SUBREDDIT_NAME = params[0];
+        String subredditName = params[0];
+        String redditJsonString;
 
-        try{
-            String urlString = URL_BASE + SUBREDDIT_NAME;
+        try {
+            String urlString = URL_BASE + subredditName;
 
+            //turns our string into a url so that we can use it in a URL Connection
             URL subredditURL = new URL(urlString);
-
+            //opens a URL connection to the defined URL
             urlConnection = (HttpURLConnection) subredditURL.openConnection();
+            //tells the URL Connection to Get info rather than Post info
             urlConnection.setRequestMethod("GET");
+            //ok, now connect
             urlConnection.connect();
 
-            // Read the input stream into a String
+            //gets the bytes
             InputStream inputStream = urlConnection.getInputStream();
-            StringBuffer buffer = new StringBuffer();
-            if (inputStream == null) {
-                // Nothing to do.
-                return null;
-            }
 
+            //used to organize the characters brought in from bufferedReader into a string
+            StringBuffer buffer = new StringBuffer();
+
+            //turn the bytes into characters via InputStreamReader and use BufferedReader to speed
+            //up the process to take it in line-by-line
             bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
 
             String line;
@@ -64,16 +70,25 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
                 buffer.append(line + "\n");
             }
 
-            if (buffer.length() == 0) {
-                // Stream was empty.  No point in parsing.
-                return null;
-            }
             redditJsonString = buffer.toString();
 
-        }catch (IOException e) {
+        } catch (IOException e) {
+            //goes here if we attempt to connect to an invalid URL
 
-        return null;
-    } finally {
+            return null;
+        } finally {
+            closeConnections(urlConnection, bufferedReader);
+        }
+        try {
+            ArrayList<ListingModel> listingInformation = new SubredditJsonParser().parsePostingFromJsonString(redditJsonString);
+            return listingInformation;
+
+        } catch (JSONException e) {
+            return null;
+        }
+    }
+
+    private void closeConnections(HttpURLConnection urlConnection, BufferedReader bufferedReader) {
         if (urlConnection != null) {
             urlConnection.disconnect();
         }
@@ -84,20 +99,13 @@ public class SubredditApiRequest extends AsyncTask<String, Void, ArrayList<Listi
             }
         }
     }
-        try {
-            ArrayList<ListingModel> listingInformation = new SubredditJsonParser().parsePostingFromJsonString(redditJsonString);
-            return listingInformation;
-
-        } catch (JSONException e) {
-            return null;
-        }
-    }
 
 
     @Override
     protected void onPostExecute(ArrayList<ListingModel> listingModels) {
         super.onPostExecute(listingModels);
-        // implement interface to send arraylist back to main activity
+        //here we call a method on our interface object (which is our Mainactivity) to pass an
+        //ArrayList of listing models back to the main activity's getArrayListOfListings method
         listingInterface.getArrayListOfListings(listingModels);
     }
 }

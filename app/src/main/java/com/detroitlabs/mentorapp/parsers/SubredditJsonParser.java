@@ -13,8 +13,6 @@ import java.util.ArrayList;
  */
 public class SubredditJsonParser {
 
-    public ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
-
     private static final String DATA_KEY = "data";
     private static final String CHILDREN_KEY = "children";
     private static final String TITLE_KEY = "title";
@@ -23,9 +21,13 @@ public class SubredditJsonParser {
     private static final String SELF_TEXT_KEY = "selftext";
     private static final String IS_SELF_KEY = "is_self";
 
+    //throws a JSONException so that the caller of this method has to deal with the JSONException
     public ArrayList<ListingModel> parsePostingFromJsonString(String redditJsonString) throws JSONException {
+        ArrayList<ListingModel> redditListingModelList = new ArrayList<ListingModel>();
 
         JSONObject listingJsonObject = new JSONObject(redditJsonString);
+
+        //peelin' the onion until we get our JSONArray
         JSONObject dataJsonObject = listingJsonObject.getJSONObject(DATA_KEY);
         JSONArray childrenJsonArray = dataJsonObject.getJSONArray(CHILDREN_KEY);
 
@@ -33,12 +35,15 @@ public class SubredditJsonParser {
             ListingModel redditListingModel = new ListingModel();
             JSONObject anotherDataJsonObject = childrenJsonArray.getJSONObject(i).getJSONObject(DATA_KEY);
 
-            redditListingModel.setTitle(anotherDataJsonObject.getString(TITLE_KEY));
+
+            //grabbin' all the things from the objects in the array that we peeled down to
+            redditListingModel.setTitle(anotherDataJsonObject.optString(TITLE_KEY));
+
+
             redditListingModel.setAuthor(anotherDataJsonObject.getString(AUTHOR_KEY));
             redditListingModel.setListingUrl(anotherDataJsonObject.getString(URL_KEY));
             redditListingModel.setSelfText(anotherDataJsonObject.getString(SELF_TEXT_KEY));
             redditListingModel.setIsSelfText(anotherDataJsonObject.getBoolean(IS_SELF_KEY));
-                // Android knows that one is a String and the other is a boolean
 
             redditListingModelList.add(redditListingModel);
         }
